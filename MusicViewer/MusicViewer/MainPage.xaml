@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:essentials="clr-namespace:Xamarin.Essentials;assembly=Xamarin.Essentials"
+             x:Class="MusicViewer.MainPage">
+
+    <StackLayout>
+        <!--<Frame BackgroundColor="#263354">
+            <Frame.Content>
+                <Label TextColor="#FFFFFF" FontSize="Body" HorizontalTextAlignment="Center">[MUSIC APP NAME]</Label>
+            </Frame.Content>
+        </Frame>-->
+
+        <xct:TabView TabStripPlacement="Bottom">
+            <xct:TabViewItem Text="Player" BackgroundColor="#394A75" TextColor="#FFFFFF">
+                <xct:TabViewItem.Content>
+                    <StackLayout BackgroundColor="#151c2e">
+                        <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                            <Button Text="⏪︎" Clicked="StepBack"></Button>
+                            <Button Text="⏯︎" Clicked="PlayCurrentSong"></Button>
+                            <Button Text="⏩︎" Clicked="StepForward"></Button>
+                            <Button x:Name="loopBtn" Text="LOOP" Clicked="ToggleLoop"></Button>
+                        </StackLayout>
+
+                        <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                            <Button Text="NEXT" Clicked="PlayNext"></Button>
+                            <Button Text="PREV" Clicked="PlayPrevious"></Button>
+                        </StackLayout>
+
+                        <Slider ThumbColor="White" IsEnabled="False" x:Name="progressBar" DragCompleted="progressBar_DragCompleted">
+                        </Slider>
+                    </StackLayout>
+                </xct:TabViewItem.Content>
+            </xct:TabViewItem>
+
+            <xct:TabViewItem Text="Importer" BackgroundColor="#394A75" TextColor="#FFFFFF">
+                <xct:TabViewItem.Content>
+                    <StackLayout BackgroundColor="#151c2e">
+                        <Button Text="Import Music Files" Margin="20" Clicked="AddToQueue"></Button>
+                        <Button Text="Clear Song Queue" Margin="-10, 20, 0, 20" Clicked="ClearSongQueue"></Button>
+
+                        <!--<Label Text="Queue" TextColor="#FFFFFF" HorizontalOptions="Center"></Label>-->
+                        <!--<ListView x:Name="songQueueList" BackgroundColor="#263354" SeparatorColor="#566EA8">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextCell Text="{Binding FileName}"
+                                              Detail="{Binding FilePath}"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>-->
+
+                        <!--<ListView x:Name="songQueueList" BackgroundColor="#263354" Margin="0, 0, 10, 0">
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="essentials:FileResult">
+                                    <ViewCell>
+                                        <Grid Padding="10">
+                                            <Label Text="{Binding FileName}"
+                                                   VerticalOptions="Center"/>
+                                        </Grid>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>-->
+                    </StackLayout>
+                </xct:TabViewItem.Content>
+            </xct:TabViewItem>
+        </xct:TabView>
+    </StackLayout>
+</ContentPage>
