@@ -12,6 +12,9 @@ using Xamarin.Forms.PlatformConfiguration;
 
 namespace MusicViewer
 {
+    /// <summary>
+    /// This class, as you can tell by the name, contains data for songs.
+    /// </summary>
     class SongData
     {
         public string fileName;
@@ -34,7 +37,7 @@ namespace MusicViewer
             PickerTitle = "Music Files",
             FileTypes = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
             {
-                { DevicePlatform.Android, new[] { "audio/mpeg", "audio/x-wav", "audio/ogg" } },
+                { DevicePlatform.Android, new[] { "audio/mpeg", "audio/x-wav", "audio/ogg" } }, //Add more platforms later
             })
         };
 
