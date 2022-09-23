@@ -12,6 +12,23 @@ using Xamarin.Forms.PlatformConfiguration;
 
 namespace MusicViewer
 {
+    class SongData
+    {
+        public string fileName;
+
+        public string songName;
+        public string artist;
+
+        public SongData(string file, string name, string artist)
+        {
+            this.fileName = file;
+            this.songName = name;
+            this.artist = artist;
+        }
+
+        public static SongData Farewell = new SongData("ytmp3free.cc_celeste-farewell-original-soundtrack-10-farewell-youtubemp3free.org.mp3", "Farewell", "Lena Raine");
+    }
+
     public partial class MainPage : ContentPage
     {
         private static PickOptions PickOption_Music = new PickOptions
@@ -32,6 +49,7 @@ namespace MusicViewer
         }
 
         private List<FileResult> songQueue = new List<FileResult>();
+        private List<SongData> songData = new List<SongData>() { SongData.Farewell };
 
         private async void AddToQueue(object sender, EventArgs e)
         {
@@ -144,9 +162,6 @@ namespace MusicViewer
 
         private void ToggleLoop(object sender, EventArgs e)
         {
-            if (!playing)
-                return;
-
             CrossMediaManager.Current.ToggleRepeat();
 
             loopBtn.Text = TextBasedOnLoopStatus();
@@ -154,38 +169,65 @@ namespace MusicViewer
 
         private async void PlaySong()
         {
+            ShowSongInfo(songName, artistName);
+
             playing = true;
             progressBar.IsEnabled = true;
             await CrossMediaManager.Current.Play(songQueue[songIndex].FullPath);
 
             CrossMediaManager.Current.PositionChanged += Current_PositionChanged;
+            CrossMediaManager.Current.StateChanged += Current_StateChanged;
         }
 
-        private void Current_PositionChanged(object sender, MediaManager.Playback.PositionChangedEventArgs e)
+        private void Current_StateChanged(object sender, MediaManager.Playback.StateChangedEventArgs e)
         {
+            if (e.State != MediaManager.Player.MediaPlayerState.Playing)
+                return;
+
             try
             {
                 var songLengthSeconds = CrossMediaManager.Current.Duration.TotalSeconds;
                 progressBar.Maximum = songLengthSeconds;
-            } catch { }
+            }
+            catch { }
+        }
+
+        private void Current_PositionChanged(object sender, MediaManager.Playback.PositionChangedEventArgs e)
+        {
+            if (CrossMediaManager.Current.State != MediaManager.Player.MediaPlayerState.Playing)
+                return;
 
             var progress = CrossMediaManager.Current.Position.TotalSeconds;
             progressBar.Value = progress;
         }
 
-        private async void PlayNext(object sender, EventArgs e)
+        private void IncreaseSongIndex()
         {
             songIndex++;
             if (songIndex >= songQueue.Count) songIndex = 0;
+        }
 
+        private async void PlayNext(object sender, EventArgs e)
+        {
+            if (!playing)
+                return;
+
+            IncreaseSongIndex();
             PlaySong();
+        }
+
+        private void DecreaseSongIndex()
+        {
+            songIndex--;
+            if (songIndex < 0) songIndex = songQueue.Count - 1;
         }
 
         private async void PlayPrevious(object sender, EventArgs e)
         {
-            songIndex--;
-            if (songIndex < 0) songIndex = songQueue.Count-1;
+            if (!playing)
+                return;
 
+            DecreaseSongIndex();
             PlaySong();
         }
 
@@ -195,6 +237,67 @@ namespace MusicViewer
             var seekTo = progressBar.Value;
 
             CrossMediaManager.Current.SeekTo(TimeSpan.FromSeconds(seekTo));
+        }
+
+        private void InfoCreator_Next(object sender, EventArgs e)
+        {
+            IncreaseSongIndex();
+            ShowSongInfo(info_currentSong, info_currentArtist);
+        }
+
+        private void ShowSongInfo(Label currentSong, Label currentArtist)
+        {
+            if (songQueue.Count < 1)
+                return;
+
+            var song = songQueue[songIndex];
+            var dataEnum = songData.Where(x => x.fileName == song.FileName);
+
+            if(dataEnum.Count() < 1)
+            {
+                currentSong.Text = song.FileName;
+                currentArtist.Text = string.Empty;
+                return;
+            }
+
+            var data = dataEnum.FirstOrDefault();
+            currentSong.Text = data.songName;
+            currentArtist.Text = data.artist;
+        }
+
+        private void InfoCreator_AddSongInfo(object sender, EventArgs e)
+        {
+            //Get song data, if it exists
+            var song = songQueue[songIndex];
+            var dataEnum = songData.Where(x => x.fileName == song.FileName);
+
+            var name = info_songName.Text;
+            var artist = info_songArtist.Text;
+
+            if (dataEnum.Count() < 1)
+            {
+                //Add new
+                var newData = new SongData(song.FileName, name, artist);
+                songData.Add(newData);
+
+                ShowSongInfo(info_currentSong, info_currentArtist);
+                ShowSongInfo(songName, artistName);
+                return;
+            }
+
+            //Modify current
+            var data = dataEnum.FirstOrDefault();
+            data.songName = name;
+            data.artist = artist;
+
+            ShowSongInfo(info_currentSong, info_currentArtist);
+            ShowSongInfo(songName, artistName);
+        }
+
+        private void InfoCreator_Prev(object sender, EventArgs e)
+        {
+            DecreaseSongIndex();
+            ShowSongInfo(info_currentSong, info_currentArtist);
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:essentials="clr-namespace:Xamarin.Essentials;assembly=Xamarin.Essentials"
-             x:Class="MusicViewer.MainPage">
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="MusicViewer.MainPage"
+             xmlns:local="clr-namespace:EntryCustomRenderer" xmlns:musicviewer="clr-namespace:MusicViewer">
 
     <StackLayout>
         <!--<Frame BackgroundColor="#263354">
@@ -15,16 +16,21 @@
             <xct:TabViewItem Text="Player" BackgroundColor="#394A75" TextColor="#FFFFFF">
                 <xct:TabViewItem.Content>
                     <StackLayout BackgroundColor="#151c2e">
-                        <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
-                            <Button Text="⏪︎" Clicked="StepBack"></Button>
-                            <Button Text="⏯︎" Clicked="PlayCurrentSong"></Button>
-                            <Button Text="⏩︎" Clicked="StepForward"></Button>
-                            <Button x:Name="loopBtn" Text="LOOP" Clicked="ToggleLoop"></Button>
+                        <StackLayout HorizontalOptions="Center" WidthRequest="500">
+                            <Label x:Name="songName" TextColor="White" HorizontalOptions="Center" FontSize="Large" Text=""></Label>
+                            <Label x:Name="artistName" TextColor="White" HorizontalOptions="Center" FontSize="Medium" Text=""></Label>
+                        </StackLayout>
+                        
+                        <StackLayout HorizontalOptions="Center" Orientation="Horizontal" Margin="0,0,0,0">
+                            <Button CornerRadius="30" Text="⏪︎" Clicked="StepBack"></Button>
+                            <Button CornerRadius="30" Text="⏯︎" Clicked="PlayCurrentSong"></Button>
+                            <Button CornerRadius="30" Text="⏩︎" Clicked="StepForward"></Button>
+                            <Button x:Name="loopBtn" CornerRadius="30" Text="LOOP" Clicked="ToggleLoop"></Button>
                         </StackLayout>
 
                         <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
-                            <Button Text="NEXT" Clicked="PlayNext"></Button>
-                            <Button Text="PREV" Clicked="PlayPrevious"></Button>
+                            <Button CornerRadius="30" Text="NEXT" Clicked="PlayNext"></Button>
+                            <Button CornerRadius="30" Text="PREV" Clicked="PlayPrevious"></Button>
                         </StackLayout>
 
                         <Slider ThumbColor="White" IsEnabled="False" x:Name="progressBar" DragCompleted="progressBar_DragCompleted">
@@ -36,8 +42,8 @@
             <xct:TabViewItem Text="Importer" BackgroundColor="#394A75" TextColor="#FFFFFF">
                 <xct:TabViewItem.Content>
                     <StackLayout BackgroundColor="#151c2e">
-                        <Button Text="Import Music Files" Margin="20" Clicked="AddToQueue"></Button>
-                        <Button Text="Clear Song Queue" Margin="-10, 20, 0, 20" Clicked="ClearSongQueue"></Button>
+                        <Button Text="Import Music Files" CornerRadius="30" Margin="20" Clicked="AddToQueue"></Button>
+                        <Button Text="Clear Song Queue" CornerRadius="30" Margin="20, 0, 20, 20" Clicked="ClearSongQueue"></Button>
 
                         <!--<Label Text="Queue" TextColor="#FFFFFF" HorizontalOptions="Center"></Label>-->
                         <!--<ListView x:Name="songQueueList" BackgroundColor="#263354" SeparatorColor="#566EA8">
@@ -62,6 +68,25 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>-->
+                    </StackLayout>
+                </xct:TabViewItem.Content>
+            </xct:TabViewItem>
+
+            <xct:TabViewItem Text="Info Creator" BackgroundColor="#394A75" TextColor="#FFFFFF">
+                <xct:TabViewItem.Content>
+                    <StackLayout BackgroundColor="#151c2e">
+                        <StackLayout>
+                            <Label x:Name="info_currentSong" Text="SONG" HorizontalOptions="Center" FontSize="Medium" TextColor="#FFFFFF"/>
+                            <Label x:Name="info_currentArtist" Text="ARTIST" HorizontalOptions="Center" FontSize="Small" TextColor="#FFFFFF"/>
+                            <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                                <Button Text="NEXT" Clicked="InfoCreator_Next" CornerRadius="30"/>
+                                <Button Text="PREV" Clicked="InfoCreator_Prev" CornerRadius="30"/>
+                            </StackLayout>
+                            <Entry x:Name="info_songName" Placeholder="Song Name" PlaceholderColor="#CFCFCF" TextColor="#FFFFFF"/>
+                            <Entry x:Name="info_songArtist" Placeholder="Artist" PlaceholderColor="#CFCFCF" TextColor="#FFFFFF"/>
+
+                            <Button Text="Add Song Info" Clicked="InfoCreator_AddSongInfo" Margin="50,0,50,0" CornerRadius="30"/>
+                        </StackLayout>
                     </StackLayout>
                 </xct:TabViewItem.Content>
             </xct:TabViewItem>
