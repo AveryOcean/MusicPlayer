@@ -1,0 +1,6 @@
+TODO:
+- Make the UI look good
+- Redo some of the code
+- Maybe add more features?
+- Remove as many dependencies as you can
+- Get the app to run on an actual Android Device
