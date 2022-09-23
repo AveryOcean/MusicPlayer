@@ -25,8 +25,6 @@ namespace MusicViewer
             this.songName = name;
             this.artist = artist;
         }
-
-        public static SongData Farewell = new SongData("ytmp3free.cc_celeste-farewell-original-soundtrack-10-farewell-youtubemp3free.org.mp3", "Farewell", "Lena Raine");
     }
 
     public partial class MainPage : ContentPage
@@ -49,7 +47,7 @@ namespace MusicViewer
         }
 
         private List<FileResult> songQueue = new List<FileResult>();
-        private List<SongData> songData = new List<SongData>() { SongData.Farewell };
+        private List<SongData> songData = new List<SongData>();
 
         private async void AddToQueue(object sender, EventArgs e)
         {

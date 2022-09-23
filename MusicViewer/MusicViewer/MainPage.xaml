@@ -2,8 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             x:Class="MusicViewer.MainPage"
-             xmlns:local="clr-namespace:EntryCustomRenderer" xmlns:musicviewer="clr-namespace:MusicViewer">
+             x:Class="MusicViewer.MainPage">
 
     <StackLayout>
         <!--<Frame BackgroundColor="#263354">
