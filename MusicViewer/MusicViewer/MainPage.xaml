@@ -15,14 +15,14 @@
             <xct:TabViewItem Text="Player" BackgroundColor="#394A75" TextColor="#FFFFFF">
                 <xct:TabViewItem.Content>
                     <StackLayout BackgroundColor="#151c2e">
-                        <StackLayout HorizontalOptions="Center" WidthRequest="500">
+                        <StackLayout HorizontalOptions="Center" WidthRequest="500" Margin="0,20,0,0">
                             <Label x:Name="songName" TextColor="White" HorizontalOptions="Center" FontSize="Large" Text=""></Label>
                             <Label x:Name="artistName" TextColor="White" HorizontalOptions="Center" FontSize="Medium" Text=""></Label>
                         </StackLayout>
                         
-                        <StackLayout HorizontalOptions="Center" Orientation="Horizontal" Margin="0,0,0,0">
+                        <StackLayout HorizontalOptions="Center" Orientation="Horizontal" Margin="0,10,0,0">
                             <Button CornerRadius="30" FontSize="20" BackgroundColor="#833FFF" Text="⏪︎" Clicked="StepBack"></Button>
-                            <Button CornerRadius="30" FontSize="20" BackgroundColor="#FFFFFF" Text="⏯︎" Clicked="PlayCurrentSong"></Button>
+                            <Button CornerRadius="30" FontSize="20" TextColor="#000000" BackgroundColor="#FFFFFF" Text="⏯︎" Clicked="PlayCurrentSong"></Button>
                             <Button CornerRadius="30" FontSize="20" BackgroundColor="#833FFF" Text="⏩︎" Clicked="StepForward"></Button>
                             <Button x:Name="loopBtn" BackgroundColor="#2DD194" CornerRadius="30" Text="LOOP" Clicked="ToggleLoop"></Button>
                         </StackLayout>
@@ -41,7 +41,7 @@
             <xct:TabViewItem Text="Importer" BackgroundColor="#394A75" TextColor="#FFFFFF">
                 <xct:TabViewItem.Content>
                     <StackLayout BackgroundColor="#151c2e">
-                        <Button BackgroundColor="#FFFFFF" Text="Import Music Files" CornerRadius="30" Margin="20" Clicked="AddToQueue"></Button>
+                        <Button BackgroundColor="#FFFFFF" TextColor="#000000" Text="Import Music Files" CornerRadius="30" Margin="20,20,20,20" Clicked="AddToQueue"></Button>
                         <Button BackgroundColor="#FF2778" Text="Clear Song Queue" CornerRadius="30" Margin="20, 0, 20, 20" Clicked="ClearSongQueue"></Button>
 
                         <!--<Label Text="Queue" TextColor="#FFFFFF" HorizontalOptions="Center"></Label>-->
@@ -74,17 +74,17 @@
             <xct:TabViewItem Text="Info Creator" BackgroundColor="#394A75" TextColor="#FFFFFF">
                 <xct:TabViewItem.Content>
                     <StackLayout BackgroundColor="#151c2e">
-                        <StackLayout>
+                        <StackLayout Margin="0,20,0,0">
                             <Label x:Name="info_currentSong" Text="SONG" HorizontalOptions="Center" FontSize="Medium" TextColor="#FFFFFF"/>
                             <Label x:Name="info_currentArtist" Text="ARTIST" HorizontalOptions="Center" FontSize="Small" TextColor="#FFFFFF"/>
                             <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
                                 <Button BackgroundColor="#2DD194" Text="NEXT" Clicked="InfoCreator_Next" CornerRadius="30"/>
                                 <Button BackgroundColor="#FF2778" Text="PREV" Clicked="InfoCreator_Prev" CornerRadius="30"/>
                             </StackLayout>
-                            <Entry x:Name="info_songName" Placeholder="Song Name" PlaceholderColor="#CFCFCF" TextColor="#FFFFFF"/>
-                            <Entry x:Name="info_songArtist" Placeholder="Artist" PlaceholderColor="#CFCFCF" TextColor="#FFFFFF"/>
+                            <Entry Margin="20,0,20,0" x:Name="info_songName" Placeholder="Song Name" PlaceholderColor="#CFCFCF" TextColor="#FFFFFF"/>
+                            <Entry Margin="20,0,20,0" x:Name="info_songArtist" Placeholder="Artist" PlaceholderColor="#CFCFCF" TextColor="#FFFFFF"/>
 
-                            <Button BackgroundColor="#FFFFFF" Text="Add Song Info" Clicked="InfoCreator_AddSongInfo" Margin="50,0,50,0" CornerRadius="30"/>
+                            <Button BackgroundColor="#FFFFFF" TextColor="#000000" Text="Add Song Info" Clicked="InfoCreator_AddSongInfo" Margin="50,0,50,0" CornerRadius="30"/>
                         </StackLayout>
                     </StackLayout>
                 </xct:TabViewItem.Content>

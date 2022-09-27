@@ -204,6 +204,9 @@ namespace MusicViewer
 
         private void IncreaseSongIndex()
         {
+            if (songQueue.Count < 1)
+                return;
+
             songIndex++;
             if (songIndex >= songQueue.Count) songIndex = 0;
         }
@@ -219,6 +222,9 @@ namespace MusicViewer
 
         private void DecreaseSongIndex()
         {
+            if (songQueue.Count < 1)
+                return;
+
             songIndex--;
             if (songIndex < 0) songIndex = songQueue.Count - 1;
         }
@@ -269,30 +275,37 @@ namespace MusicViewer
         private void InfoCreator_AddSongInfo(object sender, EventArgs e)
         {
             //Get song data, if it exists
-            var song = songQueue[songIndex];
-            var dataEnum = songData.Where(x => x.fileName == song.FileName);
-
-            var name = info_songName.Text;
-            var artist = info_songArtist.Text;
-
-            if (dataEnum.Count() < 1)
+            try
             {
-                //Add new
-                var newData = new SongData(song.FileName, name, artist);
-                songData.Add(newData);
+                var song = songQueue[songIndex];
+                var dataEnum = songData.Where(x => x.fileName == song.FileName);
+
+                var name = info_songName.Text;
+                var artist = info_songArtist.Text;
+
+                if (dataEnum.Count() < 1)
+                {
+                    //Add new
+                    var newData = new SongData(song.FileName, name, artist);
+                    songData.Add(newData);
+
+                    ShowSongInfo(info_currentSong, info_currentArtist);
+                    ShowSongInfo(songName, artistName);
+                    return;
+                }
+
+                //Modify current
+                var data = dataEnum.FirstOrDefault();
+                data.songName = name;
+                data.artist = artist;
 
                 ShowSongInfo(info_currentSong, info_currentArtist);
                 ShowSongInfo(songName, artistName);
+            }
+            catch
+            {
                 return;
             }
-
-            //Modify current
-            var data = dataEnum.FirstOrDefault();
-            data.songName = name;
-            data.artist = artist;
-
-            ShowSongInfo(info_currentSong, info_currentArtist);
-            ShowSongInfo(songName, artistName);
         }
 
         private void InfoCreator_Prev(object sender, EventArgs e)
